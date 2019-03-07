@@ -4,8 +4,9 @@ namespace Faker\Test\Provider\en_NG;
 
 use Faker\Generator;
 use Faker\Provider\en_NG\Person;
+use PHPUnit\Framework\TestCase;
 
-class PersonTest extends \PHPUnit_Framework_TestCase
+class PersonTest extends TestCase
 {
      /**
      * @var Generator

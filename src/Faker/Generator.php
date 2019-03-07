@@ -33,6 +33,7 @@ namespace Faker;
  * @property string $isbn10
  *
  * @property string $phoneNumber
+ * @property string $e164PhoneNumber
  *
  * @property string $company
  * @property string $companySuffix
@@ -43,7 +44,7 @@ namespace Faker;
  * @method string creditCardNumber($type = null, $formatted = false, $separator = '-')
  * @property \DateTime $creditCardExpirationDate
  * @property string $creditCardExpirationDateString
- * @property string $creditCardDetails
+ * @property array $creditCardDetails
  * @property string $bankAccountNumber
  * @method string iban($countryCode = null, $prefix = '', $length = null)
  * @property string $swiftBicNumber
@@ -94,17 +95,31 @@ namespace Faker;
  * @property \DateTime $dateTimeThisYear
  * @property \DateTime $dateTimeThisMonth
  * @property string    $amPm
- * @property int       $dayOfMonth
- * @property int       $dayOfWeek
- * @property int       $month
+ * @property string    $dayOfMonth
+ * @property string    $dayOfWeek
+ * @property string    $month
  * @property string    $monthName
- * @property int       $year
- * @property int       $century
+ * @property string    $year
+ * @property string    $century
  * @property string    $timezone
+ * @method string amPm($max = 'now')
  * @method string date($format = 'Y-m-d', $max = 'now')
+ * @method string dayOfMonth($max = 'now')
+ * @method string dayOfWeek($max = 'now')
+ * @method string iso8601($max = 'now')
+ * @method string month($max = 'now')
+ * @method string monthName($max = 'now')
  * @method string time($format = 'H:i:s', $max = 'now')
- * @method \DateTime dateTimeBetween($startDate = '-30 years', $endDate = 'now')
+ * @method int unixTime($max = 'now')
+ * @method string year($max = 'now')
+ * @method \DateTime dateTime($max = 'now', $timezone = null)
+ * @method \DateTime dateTimeAd($max = 'now', $timezone = null)
+ * @method \DateTime dateTimeBetween($startDate = '-30 years', $endDate = 'now', $timezone = null)
  * @method \DateTime dateTimeInInterval($date = '-30 years', $interval = '+5 days', $timezone = null)
+ * @method \DateTime dateTimeThisCentury($max = 'now', $timezone = null)
+ * @method \DateTime dateTimeThisDecade($max = 'now', $timezone = null)
+ * @method \DateTime dateTimeThisYear($max = 'now', $timezone = null)
+ * @method \DateTime dateTimeThisMonth($max = 'now', $timezone = null)
  *
  * @property string $md5
  * @property string $sha1
@@ -139,6 +154,7 @@ namespace Faker;
  * @method string toUpper($string = '')
  * @method Generator optional($weight = 0.5, $default = null)
  * @method Generator unique($reset = false, $maxRetries = 10000)
+ * @method Generator valid($validator = null, $maxRetries = 10000)
  *
  * @method integer biasedNumberBetween($min = 0, $max = 100, $function = 'sqrt')
  *
@@ -262,5 +278,10 @@ class Generator
     public function __call($method, $attributes)
     {
         return $this->format($method, $attributes);
+    }
+
+    public function __destruct()
+    {
+        $this->seed();
     }
 }
